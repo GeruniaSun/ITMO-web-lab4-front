@@ -1,0 +1,69 @@
+<div class="auth-panel">
+  <div class="auth-header">
+    <button
+      class="auth-tab"
+      [class.active]="isLoginMode"
+      (click)="selectMode('login')">
+      Авторизация
+    </button>
+    <button
+      class="auth-tab"
+      [class.active]="!isLoginMode"
+      (click)="selectMode('register')">
+      Регистрация
+    </button>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #authForm="ngForm" class="auth-form">
+    <div class="form-group">
+      <label for="login">Логин</label>
+      <input
+        id="login"
+        type="text"
+        name="login"
+        [(ngModel)]="formData.login"
+        #login="ngModel"
+        required
+        class="form-control" />
+      <div class="error" *ngIf="login.invalid && login.touched">Логин обязателен</div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Пароль</label>
+      <input
+        id="password"
+        type="password"
+        name="password"
+        [(ngModel)]="formData.password"
+        #password="ngModel"
+        required
+        minlength="6"
+        class="form-control" />
+      <div class="error" *ngIf="password.invalid && password.touched">
+        Пароль обязателен и должен быть не менее 6 символов
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="!isLoginMode">
+      <label for="confirmPassword">Повторите пароль</label>
+      <input
+        id="confirmPassword"
+        type="password"
+        name="confirmPassword"
+        [(ngModel)]="formData.confirmPassword"
+        #confirmPassword="ngModel"
+        required
+        class="form-control" />
+      <div class="error" *ngIf="confirmPassword.invalid && confirmPassword.touched">
+        Поле обязательно для заполнения
+      </div>
+      <div class="error" *ngIf="formData.confirmPassword !== formData.password && confirmPassword.touched">
+        Пароли должны совпадать
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="authForm.invalid" class="btn-submit">
+      {{ isLoginMode ? 'Войти' : 'Зарегистрироваться' }}
+    </button>
+  </form>
+</div>
