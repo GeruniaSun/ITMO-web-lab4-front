@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <button type="submit" [disabled]="authForm.invalid" class="btn-submit">
+    <button type="submit" [disabled]="authForm.invalid" [routerLink]="['/main']" class="btn-submit">
       {{ isLoginMode ? 'Войти' : 'Зарегистрироваться' }}
     </button>
   </form>

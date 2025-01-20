@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-authorisation-panel',
   imports: [
     FormsModule,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './authorisation-panel.component.html',
   standalone: true,

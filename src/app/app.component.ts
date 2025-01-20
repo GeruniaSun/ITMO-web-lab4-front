@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import {ClockComponent} from './clock/clock.component';
 import {AuthorisationPanelComponent} from './authorisation-panel/authorisation-panel.component';
 import {NgOptimizedImage} from '@angular/common';
+import {RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ClockComponent, AuthorisationPanelComponent, NgOptimizedImage],
+  imports: [RouterModule, ClockComponent, AuthorisationPanelComponent, NgOptimizedImage],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.sass'
