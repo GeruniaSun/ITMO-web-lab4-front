@@ -1,12 +1,12 @@
-$primary-color: #007bff
-$secondary-color: #f9f9f9
+$primary-color: #e400ff
+$secondary-color: #10d230
 $error-color: #dc3545
 $text-color: #333
 $border-radius: 8px
 $border-color: #ccc
 $box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
 $spacing: 15px
-$button-hover-bg: lighten($primary-color, 10%)
+$button-hover-bg: lighten($secondary-color, 10%)
 
 .auth-panel
   width: 100%
@@ -30,11 +30,12 @@ $button-hover-bg: lighten($primary-color, 10%)
 
 .auth-tab
   flex: 1
+  color: white
   padding: calc($spacing / 2)
   font-size: 16px
   cursor: pointer
   border: none
-  background: $secondary-color
+  background: darken($primary-color, 10%)
   border-bottom: 2px solid transparent
   text-align: center
   transition: all 0.3s
@@ -75,11 +76,6 @@ $button-hover-bg: lighten($primary-color, 10%)
       &:focus
         border-color: $primary-color
 
-    .error
-      color: $error-color
-      font-size: 12px
-      margin-top: calc($spacing / 4)
-
 .btn-submit
   width: 100%
   padding: calc($spacing / 2)
@@ -97,3 +93,11 @@ $button-hover-bg: lighten($primary-color, 10%)
   &:disabled
     background-color: $border-color
     cursor: not-allowed
+
+.error
+  color: $error-color
+  font-size: 12px
+  margin-top: calc($spacing / 4)
+
+  #auth-fetch-error
+    display: none

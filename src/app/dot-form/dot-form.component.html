@@ -1,0 +1,59 @@
+<div class="form-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Поле для X -->
+    <div class="form-group">
+      <label for="x">Введите X:</label>
+      <input
+        id="x"
+        type="text"
+        formControlName="x"
+        class="form-control"
+        [class.invalid]="xControl.invalid && xControl.touched"
+      />
+      <div class="error" *ngIf="xControl.errors && xControl.touched">
+        <span *ngIf="xControl.errors?.['required']">Поле обязательно для заполнения.</span>
+        <span *ngIf="xControl.errors?.['min']">Минимальное значение: -5.</span>
+        <span *ngIf="xControl.errors?.['max']">Максимальное значение: 5.</span>
+        <span *ngIf="xControl.errors?.['pattern']">Введите корректное число.</span>
+      </div>
+    </div>
+
+    <!-- Поле для Y -->
+    <div class="form-group">
+      <label for="y">Введите Y:</label>
+      <input
+        id="y"
+        type="text"
+        formControlName="y"
+        class="form-control"
+        [class.invalid]="yControl.invalid && yControl.touched"
+      />
+      <div class="error" *ngIf="yControl.errors && yControl.touched">
+        <span *ngIf="yControl.errors?.['required']">Поле обязательно для заполнения.</span>
+        <span *ngIf="yControl.errors?.['min']">Минимальное значение: -5.</span>
+        <span *ngIf="yControl.errors?.['max']">Максимальное значение: 5.</span>
+        <span *ngIf="yControl.errors?.['pattern']">Введите корректное число.</span>
+      </div>
+    </div>
+
+    <!-- Поле для R -->
+    <div class="form-group">
+      <label for="r">Введите R:</label>
+      <input
+        id="r"
+        type="text"
+        formControlName="r"
+        class="form-control"
+        [class.invalid]="rControl.invalid && rControl.touched"
+      />
+      <div class="error" *ngIf="rControl.errors && rControl.touched">
+        <span *ngIf="rControl.errors?.['required']">Поле обязательно для заполнения.</span>
+        <span *ngIf="rControl.errors?.['min']">Минимальное значение: 1.</span>
+        <span *ngIf="rControl.errors?.['max']">Максимальное значение: 5.</span>
+        <span *ngIf="rControl.errors?.['pattern']">Введите корректное число.</span>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-submit" [disabled]="form.invalid">Отправить</button>
+  </form>
+</div>

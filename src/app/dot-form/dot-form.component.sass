@@ -1,0 +1,60 @@
+$form-error-color: #dc3545
+$form-border-color: #ccc
+$form-border-radius: 8px
+$form-spacing: 15px
+$form-primary-color: #007bff
+$form-disabled-color: rgba(221, 221, 221, 0.74)
+
+$shadow-color: rgb(255, 255, 255, 0.8)
+$shadow-hover-color: rgba(0, 0, 0, 0.5)
+$shadow-offset: 10px
+
+.form-container
+  max-width: 400px
+  margin: 20px auto
+  padding: $form-spacing
+  border: 1px solid $form-border-color
+  border-radius: $form-border-radius
+  background-color: #f9f9f9
+
+  box-shadow: $shadow-color $shadow-offset $shadow-offset $shadow-offset
+  &:hover
+    box-shadow: $shadow-hover-color $shadow-offset * 2 $shadow-offset * 2 $shadow-offset / 2
+
+.form-group
+  margin-bottom: $form-spacing
+  label
+    font-weight: bold
+    margin-bottom: 5px
+    display: block
+  .form-control
+    width: 100%
+    padding: 10px 1px 10px 10px
+    border: 2px solid $form-border-color
+    border-radius: $form-border-radius
+    font-size: 16px
+    outline: none
+    &:focus
+      border-color: $form-primary-color
+  &.invalid
+    border-color: $form-error-color
+
+  .error
+    color: $form-error-color
+    font-size: 12px
+    margin-top: 5px
+
+.btn-submit
+  width: 100%
+  padding: 10px
+  font-size: 16px
+  color: #fff
+  background-color: $form-primary-color
+  border: none
+  border-radius: $form-border-radius
+  cursor: pointer
+  &:hover
+    background-color: lighten($form-primary-color, 10%)
+  &:disabled
+    background-color: $form-disabled-color
+    cursor: not-allowed

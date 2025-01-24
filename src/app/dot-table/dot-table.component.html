@@ -1,0 +1,20 @@
+<table>
+  <thead>
+  <tr>
+    <th>X</th>
+    <th>Y</th>
+    <th>R</th>
+    <th>Попадание</th>
+    <th>Время</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dot of dots">
+    <td>{{ dot.x }}</td>
+    <td>{{ dot.y }}</td>
+    <td>{{ dot.r }}</td>
+    <td>{{ dot.hit ? 'Да' : 'Нет' }}</td>
+    <td>{{ dot.datetime }}</td>
+  </tr>
+  </tbody>
+</table>

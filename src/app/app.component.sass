@@ -1,8 +1,84 @@
 $font-color: #333
+$font-size: 20px
+$font: Arial
+$content-width: 1200px
+
+$a-hover-background-color: orange
+$a-active-background-color: #333
+$a-text-color: white
+$a-padding: 10px 15px
+$a-border-radius: 5vw
+$a-transition-duration: 0.5s
+$a-transition-timing-function: ease
+$a-scale: 1.5
+
+$h1-background-image-url: url('../assets/images/smiles.png')
+$h1-font-color: #6e0468
+$h1-font-size: 50px
+$h1-text-shadow-color: white
+$h1-shadow-thickness: 6px
+$h1-shadow-color: rgba(0, 0, 0, 0.5)
+
+$hat-background-image-url: url('../assets/images/mdma.png')
+$hat-font-color: #0012d0
+$hat-font-size: 20px
+$hat-text-shadow-color: yellow
+$hat-shadow-thickness: 3px
+$hat-shadow-color: rgba(0, 0, 0, 0.5)
+
+@mixin shadow-box($shadow-thickness, $shadow-color, $text-shadow-color)
+  text-shadow: $text-shadow-color $shadow-thickness / 3 $shadow-thickness / 3
+  filter: drop-shadow($shadow-thickness $shadow-thickness 0 $shadow-color) drop-shadow(-$shadow-thickness -$shadow-thickness 0 $shadow-color) drop-shadow($shadow-thickness -$shadow-thickness 0 $shadow-color)drop-shadow(-$shadow-thickness $shadow-thickness 0 $shadow-color)
 
 body
+  font-family: $font
+  font-size: $font-size
   color: $font-color
   background: #b706f3
   background: linear-gradient(300deg, red 14%, orange 28%, yellow 42%, #22ff00 56%, #6dd5ea 70%, #1b00ff 84%, #b706f3 100%)
   background: -webkit-linear-gradient(300deg, red 14%, orange 28%, yellow 42%, #22ff00 56%, #6dd5ea 70%, #1b00ff 84%, #b706f3 100%)
   background: -moz-linear-gradient(300deg, red 14%, orange 28%, yellow 42%, #22ff00 56%, #6dd5ea 70%, #1b00ff 84%, #b706f3 100%)
+
+a
+  transition: transform $a-transition-duration $a-transition-timing-function, background-color $a-transition-duration $a-transition-timing-function
+  color: $a-text-color
+  padding: $a-padding
+  text-decoration: none
+  border-radius: $a-border-radius
+
+  &:hover
+    background-color: $a-hover-background-color
+    font-size: $font-size * $a-scale
+
+  &:active
+    background-color: $a-active-background-color
+    font-size: $font-size / $a-scale
+
+h1
+  background-image: $h1-background-image-url
+  width: $content-width * 0.9
+
+  margin: $content-width / 100
+  padding: $content-width / 60 $content-width / 20
+
+  color: $h1-font-color
+  font-size: $h1-font-size
+
+  border-radius: 1vw
+
+  @include shadow-box($h1-shadow-thickness, $h1-shadow-color, $h1-text-shadow-color)
+
+#hat
+  background-image: $hat-background-image-url
+  width: $content-width / 3
+
+  margin: $content-width / 200 $content-width / 200 $content-width / 200 $content-width / 50
+  padding: $content-width / 180 $content-width / 80
+
+  color: $hat-font-color
+  font-size: $hat-font-size
+
+  border-radius: 3vw
+
+  @include shadow-box($hat-shadow-thickness, $hat-shadow-color, $hat-text-shadow-color)
+

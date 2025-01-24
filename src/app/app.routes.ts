@@ -6,12 +6,12 @@ const routeConfig: Routes = [
   {
     path: '',
     component: PageEnterComponent,
-    title: 'Home page',
+    title: 'NO MERCY',
   },
   {
     path: 'main',
     component: PageMainComponent,
-    title: 'Home details',
+    title: 'LET\'S PLAY',
   },
 ];
 export default routeConfig;

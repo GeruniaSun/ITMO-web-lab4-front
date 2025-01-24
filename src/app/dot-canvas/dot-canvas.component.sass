@@ -1,0 +1,16 @@
+$background-color: darkgrey
+$border-radius: 10px
+$shadow-color: rgb(255, 255, 255, 0.8)
+$shadow-hover-color: rgba(0, 0, 0, 0.5)
+$shadow-offset: 10px
+
+#canvas
+  background-color: $background-color
+  border-radius: $border-radius
+  box-shadow: $shadow-color $shadow-offset $shadow-offset $shadow-offset
+
+  &:hover
+    box-shadow: $shadow-hover-color $shadow-offset * 2 $shadow-offset * 2 $shadow-offset / 2
+
+  &:active
+    box-shadow: $shadow-hover-color $shadow-offset $shadow-offset $shadow-offset

@@ -1,0 +1,42 @@
+$font-size: 20px
+$offset: 50px
+$background-image: url("../../assets/images/flowers.png")
+$hover-text-color: #ffffff
+$padding-nav: 10px 20px
+$border-radius: 5px
+$box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2)
+
+$a-hover-background-color: orange
+$a-active-background-color: #333
+$a-text-color: rgb(192, 21, 87)
+$a-padding: 10px 15px
+$a-border-radius: 5vw
+$a-transition-duration: 0.5s
+$a-transition-timing-function: ease
+$a-scale: 1.5
+$a-text-shadow-color: rgba(0, 0, 0, 0.68)
+$a-text-shadow-thickness: 3px
+nav
+  position: fixed
+  right: $offset
+  top: $offset
+  background-image: $background-image
+  padding: $padding-nav
+  border-radius: $border-radius
+  box-shadow: $box-shadow
+
+a
+  transition: transform $a-transition-duration $a-transition-timing-function, background-color $a-transition-duration $a-transition-timing-function
+  color: $a-text-color
+  padding: $a-padding
+  text-decoration: none
+  border-radius: $a-border-radius
+  text-shadow: $a-text-shadow-color $a-text-shadow-thickness / 3 $a-text-shadow-thickness / 3
+
+  &:hover
+    background-color: $a-hover-background-color
+    font-size: $font-size * $a-scale
+
+  &:active
+    background-color: $a-active-background-color
+    font-size: $font-size / $a-scale

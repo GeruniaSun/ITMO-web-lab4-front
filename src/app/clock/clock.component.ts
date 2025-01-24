@@ -21,14 +21,7 @@ export class ClockComponent implements AfterViewInit{
 
   ngAfterViewInit(): void {
     this.clockCanvas = document.getElementById('clock') as HTMLCanvasElement;
-    // if (!this.clockCanvas) {
-    //   throw new Error('Не удалось найти элемент canvas с id "clock"');
-    // }
-    //
     this.ctx = this.clockCanvas.getContext('2d')!;
-    // if (!this.ctx) {
-    //   throw new Error('Не удалось получить контекст рисования канвы');
-    // }
 
     // Запуск обновления часов
     setInterval(() => this.drawClock(), 1000);
