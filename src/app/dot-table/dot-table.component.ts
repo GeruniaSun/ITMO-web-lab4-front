@@ -17,7 +17,7 @@ export class DotTableComponent {
   dots: Dot[] = [];
 
   constructor(private dotsService: DotsService) {
-    this.dots = dotsService.getAllDots();
+    dotsService.getAllDots().then(dot => this.dots = dot);
   }
 
 

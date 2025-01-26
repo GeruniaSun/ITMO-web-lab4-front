@@ -45,6 +45,7 @@
         formControlName="r"
         class="form-control"
         [class.invalid]="rControl.invalid && rControl.touched"
+        (keyup)="redrawArea()"
       />
       <div class="error" *ngIf="rControl.errors && rControl.touched">
         <span *ngIf="rControl.errors?.['required']">Поле обязательно для заполнения.</span>

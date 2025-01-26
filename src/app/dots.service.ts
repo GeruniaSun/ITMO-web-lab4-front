@@ -1,38 +1,42 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Dot} from './dot';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DotsService {
-
-  private dots: Dot[] = [
-    {
-      x: 1,
-      y: 2,
-      r: 3,
-      hit: true,
-      datetime: '1010-10-10'
-    },
-    {
-      x: 4,
-      y: 5,
-      r: 2,
-      hit: false,
-      datetime: '2020-20-20'
-    },
-    {
-      x: -1,
-      y: 0,
-      r: 1,
-      hit: true,
-      datetime: '1020-14-13'
-    },
-  ]
-
-  getAllDots(): Dot[] {
-    return this.dots;
+  constructor(private http: HttpClient) {
   }
 
-  constructor() { }
+  async getAllDots(): Promise<Dot[]> {
+    const data = await fetch('http://localhost:8080/main'); // TODO тут через http надо тоже
+    return (await data.json()) ?? [];
+  }
+
+  public addDot(x: number, y: number, r: number): Promise<Dot | null> {
+    return new Promise ( (resolve, reject) =>
+      this.http.post("http://localhost:8080/check", {x: x, y: y, r: r})
+      .subscribe(
+        (data: any) => {
+          const dot: Dot = {
+            x: data.x,
+            y: data.y,
+            r: data.r,
+            hit: data.hit,
+            datetime: data.datetime
+          }
+          console.log(`addDot нареспонсил такое:\nx: ${dot.x}\ny: ${dot.y}\nr: ${dot.r}
+          hit: ${dot.hit}\ndatetime: ${dot.datetime}`)
+
+          resolve(dot)
+        },
+        (error) => {
+          console.error('Ошибка:', error);
+          //alert('ошибочка вышла: ' + error) //мб поменять
+          resolve(null)
+        }
+      )
+    )
+  }
 }

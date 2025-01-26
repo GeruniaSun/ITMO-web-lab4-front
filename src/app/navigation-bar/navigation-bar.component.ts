@@ -11,5 +11,8 @@ import {RouterLink} from '@angular/router';
   styleUrl: './navigation-bar.component.sass'
 })
 export class NavigationBarComponent {
-
+  protected logOut() {
+    localStorage.removeItem("jwt")
+    window.location.href = "/"
+  }
 }

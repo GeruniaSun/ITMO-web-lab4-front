@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
-import {ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, FormControl} from '@angular/forms';
+import {Component} from '@angular/core';
+import {ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {NgIf} from '@angular/common';
+import {HttpClient} from '@angular/common/http';
+import { DotsService } from '../dots.service';
+import {CanvasDrawer} from '../dot-canvas/canvas-drawer';
 
 @Component({
   selector: 'app-dot-form',
@@ -14,8 +17,9 @@ import {NgIf} from '@angular/common';
 })
 export class DotFormComponent {
   form: FormGroup;
+  private canvasDrawer;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private dotsService: DotsService) {
     this.form = this.fb.group({
       x: new FormControl('', [
           Validators.required,
@@ -36,14 +40,23 @@ export class DotFormComponent {
           Validators.pattern('^-?\\d*(\\.\\d+)?$'),
       ]),
     });
+
+    this.canvasDrawer = new CanvasDrawer()
   }
 
   onSubmit(): void {
     if (this.form.valid) {
       const { x, y, r } = this.form.value;
       console.log('Форма отправлена:', { x, y, r });
-      // TODO на сервер отправляем
+      this.dotsService.addDot(x, y, r).then(dot => {
+        console.log(dot)
+        dot ? this.canvasDrawer.dotsPush(dot) : console.log("дотик нул")
+      })
     }
+  }
+
+  protected redrawArea() {
+    //this.dotCanvasComponent.refreshCanvas(this.rControl.value)
   }
 
   public get xControl(): FormControl {

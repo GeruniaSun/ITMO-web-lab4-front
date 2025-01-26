@@ -46,7 +46,7 @@ export class AuthorisationPanelComponent {
       this.authFetch("login");
     } else {
       if (this.formData.password !== this.formData.confirmPassword) {
-        alert('Пароли не совпадают!');
+        //alert('Пароли не совпадают!');
         return;
       }
       console.log('Регистрация:', this.formData);
