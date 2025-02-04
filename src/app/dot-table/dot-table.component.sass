@@ -1,19 +1,27 @@
 $border-color: #ccc
-$padding: 8px
+$pagination-buttons-padding: 8px
 $text-align: center
 $header-background-color: #f4f4f4
 $even-row-background-color: #fff4f4
 $odd-row-background-color: #fcfcea
 $hover-row-background-color: orange
-$border-radius: 10px
+$pagination-buttons-border-radius: 10px
 
 $shadow-color: rgb(255, 255, 255, 0.8)
 $shadow-hover-color: rgba(0, 0, 0, 0.5)
 $shadow-offset: 10px
 
+$pagination-buttons-primary-color: #007bff
+$pagination-buttons-hover-color: darken($pagination-buttons-primary-color, 10%)
+$pagination-buttons-disabled-color: #ccc
+$pagination-buttons-text-color: #fff
+$pagination-buttons-border-radius: 4px
+$pagination-buttons-padding: 10px 20px
+$pagination-buttons-transition: 0.3s
+
 table
   border-collapse: collapse
-  border-radius: $border-radius
+  border-radius: $pagination-buttons-border-radius
   box-shadow: $shadow-color $shadow-offset $shadow-offset $shadow-offset
 
   &:hover
@@ -21,7 +29,7 @@ table
 
 th, td
   border: 1px solid $border-color
-  padding: $padding
+  padding: $pagination-buttons-padding
   text-align: $text-align
 
 th
@@ -35,3 +43,53 @@ tr:nth-child(odd)
 
 tr:hover
   background-color: $hover-row-background-color
+
+.pagination
+  margin-top: 20px
+  color: white
+
+button
+  background-color: $pagination-buttons-primary-color
+  color: $pagination-buttons-text-color
+  border: none
+  border-radius: $pagination-buttons-border-radius
+  padding: $pagination-buttons-padding
+  cursor: pointer
+  transition: background-color $pagination-buttons-transition, transform $pagination-buttons-transition, box-shadow $pagination-buttons-transition
+
+  &:hover
+    background-color: $pagination-buttons-hover-color
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)
+
+  &:active
+    transform: scale(0.95)
+
+  &:disabled
+    background-color: $pagination-buttons-disabled-color
+    cursor: not-allowed
+    color: darken($pagination-buttons-disabled-color, 30%)
+    box-shadow: none
+
+  &.secondary
+    background-color: lighten($pagination-buttons-primary-color, 30%)
+    color: $pagination-buttons-primary-color
+
+    &:hover
+      background-color: lighten($pagination-buttons-primary-color, 20%)
+
+  &.outline
+    background-color: transparent
+    border: 1px solid $pagination-buttons-primary-color
+    color: $pagination-buttons-primary-color
+
+    &:hover
+      background-color: rgba($pagination-buttons-primary-color, 0.1)
+
+$tablet-width: 772
+
+@media (max-width: $tablet-width - 1)
+  table
+    padding: 0
+
+    th, td
+      padding: 0

@@ -21,3 +21,17 @@
   grid-column-end: 3
   grid-row-start: 2
   grid-row-end: 3
+
+$desktop-width: 1069
+@media (max-width: $desktop-width)
+  .content
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 10px
+    .canvas-container,
+    .form-container,
+    .table-container
+      width: 90%
+      margin: 0 auto
+

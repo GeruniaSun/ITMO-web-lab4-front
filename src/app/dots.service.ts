@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Dot} from './dot';
 import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,8 @@ export class DotsService {
   constructor(private http: HttpClient) {
   }
 
-  async getAllDots(): Promise<Dot[]> {
-    const data = await fetch('http://localhost:8080/main'); // TODO тут через http надо тоже
-    return (await data.json()) ?? [];
+  public getPage(page: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:8080/page?pageNumber=${page}`)
   }
 
   public addDot(x: number, y: number, r: number): Promise<Dot | null> {

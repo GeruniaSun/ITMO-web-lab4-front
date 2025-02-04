@@ -1,0 +1,20 @@
+$desktop-width: 1069
+$tablet-width: 772
+$desktop-canvas-width: 800
+$tablet-canvas-width: 400
+$phone-canvas-width: 200
+
+@media (min-width: $desktop-width)
+  canvas
+    width: $desktop-canvas-width
+    height: $desktop-canvas-width
+
+@media (min-width: $tablet-width) and (max-width: $desktop-width - 1)
+  canvas
+    width: $tablet-canvas-width
+    height: $tablet-canvas-width
+
+@media (max-width: $tablet-width - 1)
+  canvas
+    width: $phone-canvas-width
+    height: $phone-canvas-width

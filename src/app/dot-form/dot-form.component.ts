@@ -56,7 +56,7 @@ export class DotFormComponent {
   }
 
   protected redrawArea() {
-    //this.dotCanvasComponent.refreshCanvas(this.rControl.value)
+    CanvasDrawer.refreshCanvas(this.rControl.value)
   }
 
   public get xControl(): FormControl {

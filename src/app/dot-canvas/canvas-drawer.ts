@@ -2,16 +2,16 @@ import {Dot} from '../dot';
 
 export class CanvasDrawer{
 
-  private canvas!: HTMLCanvasElement;
-  private ctx!: CanvasRenderingContext2D;
+  public static canvas: HTMLCanvasElement;
+  private static ctx: CanvasRenderingContext2D;
 
-  private originX!: number;
-  private originY!: number;
-  private scale!: number;
-  public lastR = 3;
+  private static originX: number;
+  private static originY: number;
+  private static scale: number;
+  public static lastR = 3;
 
-  private dots: Dot[] = [];
-  private styles = {
+  private static dots: Dot[] = [];
+  private static styles = {
     'grid_line_color': 'white',
     'grid_line_width': 1,
     'axis_color': 'orange',
@@ -30,21 +30,21 @@ export class CanvasDrawer{
     }
   }
   initik() {
-    this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
-    this.ctx = this.canvas.getContext('2d')!;
+    CanvasDrawer.canvas = document.getElementById('canvas') as HTMLCanvasElement;
+    CanvasDrawer.ctx = CanvasDrawer.canvas.getContext('2d')!;
 
-    this.originX = this.canvas.width / 2;
-    this.originY = this.canvas.height / 2;
-    this.scale = this.canvas.height / 10;
+    CanvasDrawer.originX = CanvasDrawer.canvas.width / 2;
+    CanvasDrawer.originY = CanvasDrawer.canvas.height / 2;
+    CanvasDrawer.scale = CanvasDrawer.canvas.height / 10;
 
-    this.refreshCanvas(this.lastR);
+    CanvasDrawer.refreshCanvas(CanvasDrawer.lastR);
   }
 
 // TODO можно лейблы для X, Y, R, R/2 добавить (а можно не можно)
-  public refreshCanvas(r: number) {
-    console.log("redrawing");
-    this.lastR = r;
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  public static refreshCanvas(r: number) {
+    console.log("redrawing " + r);
+    CanvasDrawer.lastR = r;
+    CanvasDrawer.ctx.clearRect(0, 0, CanvasDrawer.canvas.width, CanvasDrawer.canvas.height);
     this.drawGrid();
     this.drawAxes();
     this.drawArea(r);
@@ -52,9 +52,9 @@ export class CanvasDrawer{
   }
 
   public dotsPush(dot: Dot) {
-    this.dots.push(dot);
-    this.playRandomAudio(dot.hit)
-    this.refreshCanvas(dot.r)
+    CanvasDrawer.dots.push(dot);
+    //this.playRandomAudio(dot.hit)
+    CanvasDrawer.refreshCanvas(dot.r)
   }
 
 // private extractDotsFromTable() {
@@ -63,106 +63,106 @@ export class CanvasDrawer{
 
 // возвращает координаты клика в нужных координатах
   public getClickCoordinates(event: MouseEvent) {
-    const rect = this.canvas.getBoundingClientRect();
+    const rect = CanvasDrawer.canvas.getBoundingClientRect();
 
     const xClick = event.clientX - rect.left;
     const yClick = event.clientY - rect.top;
 
-    const xRes = ((xClick - this.originX) / this.scale).toFixed(2);
-    const yRes = (-1 * (yClick - this.originY) / this.scale).toFixed(2);
+    const xRes = ((xClick - CanvasDrawer.originX) / CanvasDrawer.scale).toFixed(2);
+    const yRes = (-1 * (yClick - CanvasDrawer.originY) / CanvasDrawer.scale).toFixed(2);
 
     return { x: xRes, y: yRes };
   }
 
-  private drawPoint(x: number, y: number, hit: boolean) {
-    this.ctx.fillStyle = hit ? this.styles.point_hit_color : this.styles.point_miss_color;
-    this.ctx.beginPath();
-    this.ctx.arc(this.originX + x * this.scale, this.originY - y * this.scale,
+  private static drawPoint(x: number, y: number, hit: boolean) {
+    CanvasDrawer.ctx.fillStyle = hit ? CanvasDrawer.styles.point_hit_color : CanvasDrawer.styles.point_miss_color;
+    CanvasDrawer.ctx.beginPath();
+    CanvasDrawer.ctx.arc(this.originX + x * this.scale, this.originY - y * this.scale,
       5, 0, 2 * Math.PI);
-    this.ctx.fill();
-    this.ctx.closePath();
+    CanvasDrawer.ctx.fill();
+    CanvasDrawer.ctx.closePath();
   }
 
-  private drawGrid() {
+  private static drawGrid() {
     const gridSpacing = this.scale / 4;
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    CanvasDrawer.ctx.clearRect(0, 0, CanvasDrawer.canvas.width, CanvasDrawer.canvas.height);
 
     // стили клеток
-    this.ctx.strokeStyle = this.styles.grid_line_color;
-    this.ctx.lineWidth = this.styles.grid_line_width;
+    CanvasDrawer.ctx.strokeStyle = CanvasDrawer.styles.grid_line_color;
+    CanvasDrawer.ctx.lineWidth = CanvasDrawer.styles.grid_line_width;
 
     // вертикальные линии
-    for (let x = 0; x <= this.canvas.width; x += gridSpacing) {
-      this.ctx.beginPath();
-      this.ctx.moveTo(x, 0);
-      this.ctx.lineTo(x, this.canvas.height);
-      this.ctx.stroke();
+    for (let x = 0; x <= CanvasDrawer.canvas.width; x += gridSpacing) {
+      CanvasDrawer.ctx.beginPath();
+      CanvasDrawer.ctx.moveTo(x, 0);
+      CanvasDrawer.ctx.lineTo(x, CanvasDrawer.canvas.height);
+      CanvasDrawer.ctx.stroke();
     }
 
     // горизонтальные линии
-    for (let y = 0; y <= this.canvas.height; y += gridSpacing) {
-      this.ctx.beginPath();
-      this.ctx.moveTo(0, y);
-      this.ctx.lineTo(this.canvas.width, y);
-      this.ctx.stroke();
+    for (let y = 0; y <= CanvasDrawer.canvas.height; y += gridSpacing) {
+      CanvasDrawer.ctx.beginPath();
+      CanvasDrawer.ctx.moveTo(0, y);
+      CanvasDrawer.ctx.lineTo(CanvasDrawer.canvas.width, y);
+      CanvasDrawer.ctx.stroke();
     }
   }
 
-  private drawAxes() {
+  private static drawAxes() {
     // стили стрелок и осей
-    this.ctx.strokeStyle = this.styles.axis_color;
-    this.ctx.fillStyle = this.styles.axis_arrows_fill_color;
-    this.ctx.lineWidth = this.styles.axis_width;
+    CanvasDrawer.ctx.strokeStyle = CanvasDrawer.styles.axis_color;
+    CanvasDrawer.ctx.fillStyle = CanvasDrawer.styles.axis_arrows_fill_color;
+    CanvasDrawer.ctx.lineWidth = CanvasDrawer.styles.axis_width;
 
   // оси
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.originX, 0);
-    this.ctx.lineTo(this.originX, this.canvas.height);
-    this.ctx.moveTo(0, this.originY);
-    this.ctx.lineTo(this.canvas.width, this.originY);
-    this.ctx.stroke();
+    CanvasDrawer.ctx.beginPath();
+    CanvasDrawer.ctx.moveTo(this.originX, 0);
+    CanvasDrawer.ctx.lineTo(this.originX, CanvasDrawer.canvas.height);
+    CanvasDrawer.ctx.moveTo(0, this.originY);
+    CanvasDrawer.ctx.lineTo(CanvasDrawer.canvas.width, this.originY);
+    CanvasDrawer.ctx.stroke();
 
     // стрелка X
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.canvas.width/2, 0)
-    this.ctx.lineTo(this.canvas.width/2 - 15, 20);
-    this.ctx.lineTo(this.canvas.width/2 + 15, 20);
-    this.ctx.closePath();
-    this.ctx.fill();
+    CanvasDrawer.ctx.beginPath();
+    CanvasDrawer.ctx.moveTo(CanvasDrawer.canvas.width/2, 0)
+    CanvasDrawer.ctx.lineTo(CanvasDrawer.canvas.width/2 - 15, 20);
+    CanvasDrawer.ctx.lineTo(CanvasDrawer.canvas.width/2 + 15, 20);
+    CanvasDrawer.ctx.closePath();
+    CanvasDrawer.ctx.fill();
 
     // стрелка Y
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.canvas.width, this.canvas.height/2)
-    this.ctx.lineTo(this.canvas.width - 20, this.canvas.height/2 - 15);
-    this.ctx.lineTo(this.canvas.width - 20, this.canvas.height/2 + 15);
-    this.ctx.closePath();
-    this.ctx.fill();
+    CanvasDrawer.ctx.beginPath();
+    CanvasDrawer.ctx.moveTo(CanvasDrawer.canvas.width, CanvasDrawer.canvas.height/2)
+    CanvasDrawer.ctx.lineTo(CanvasDrawer.canvas.width - 20, CanvasDrawer.canvas.height/2 - 15);
+    CanvasDrawer.ctx.lineTo(CanvasDrawer.canvas.width - 20, CanvasDrawer.canvas.height/2 + 15);
+    CanvasDrawer.ctx.closePath();
+    CanvasDrawer.ctx.fill();
   }
 
-  private drawArea(r: number) {
+  private static drawArea(r: number) {
     // стили
-    this.ctx.fillStyle = this.styles.area_fill_color;
-    this.ctx.strokeStyle = this.styles.area_line_color;
-    this.ctx.lineWidth = this.styles.area_line_width;
+    CanvasDrawer.ctx.fillStyle = CanvasDrawer.styles.area_fill_color;
+    CanvasDrawer.ctx.strokeStyle = CanvasDrawer.styles.area_line_color;
+    CanvasDrawer.ctx.lineWidth = CanvasDrawer.styles.area_line_width;
 
-    this.ctx.beginPath();
+    CanvasDrawer.ctx.beginPath();
     // 1-ая четверть
-    this.ctx.moveTo(this.originX, this.originY);
-    this.ctx.arc(this.originX, this.originY, r/2 * this.scale, 3 * Math.PI / 2,  2 * Math.PI);
+    CanvasDrawer.ctx.moveTo(this.originX, this.originY);
+    CanvasDrawer.ctx.arc(this.originX, this.originY, r/2 * this.scale, 3 * Math.PI / 2,  2 * Math.PI);
 
     // 3-ья четверть
-    this.ctx.lineTo(this.originX, this.originY);
-    this.ctx.lineTo(this.originX - r * this.scale, this.originY);
-    this.ctx.lineTo(this.originX - r * this.scale, this.originY + r/2 * this.scale);
-    this.ctx.lineTo(this.originX, this.originY + r/2 * this.scale);
+    CanvasDrawer.ctx.lineTo(this.originX, this.originY);
+    CanvasDrawer.ctx.lineTo(this.originX - r * this.scale, this.originY);
+    CanvasDrawer.ctx.lineTo(this.originX - r * this.scale, this.originY + r/2 * this.scale);
+    CanvasDrawer.ctx.lineTo(this.originX, this.originY + r/2 * this.scale);
 
     // 4-ая четверть
-    this.ctx.lineTo(this.originX + r/2 * this.scale, this.originY);
-    this.ctx.lineTo(this.originX, this.originY);
+    CanvasDrawer.ctx.lineTo(this.originX + r/2 * this.scale, this.originY);
+    CanvasDrawer.ctx.lineTo(this.originX, this.originY);
 
-    this.ctx.fill();
-    this.ctx.stroke();
-    this.ctx.closePath();
+    CanvasDrawer.ctx.fill();
+    CanvasDrawer.ctx.stroke();
+    CanvasDrawer.ctx.closePath();
   }
 
   // private hitSounds = [

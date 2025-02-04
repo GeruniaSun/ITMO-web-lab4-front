@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import {Component, AfterViewInit, HostListener} from '@angular/core';
 @Component({
     selector: 'app-clock',
     imports: [],
@@ -83,4 +83,22 @@ export class ClockComponent implements AfterViewInit{
     this.ctx.stroke();
     this.ctx.restore();
   }
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.adjustCanvasSize();
+  }
+
+  private adjustCanvasSize(): void {
+    if (window.innerWidth >= 1069) {
+      this.clockCanvas.width = 600;
+      this.clockCanvas.height = 600;
+    } else if (window.innerWidth >= 772) {
+      this.clockCanvas.width = 400;
+      this.clockCanvas.height = 400;
+    } else {
+      this.clockCanvas.width = window.innerWidth * 0.9;
+      this.clockCanvas.height = window.innerWidth * 0.9;
+    }
+  }
+
 }

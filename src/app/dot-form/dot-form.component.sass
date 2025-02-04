@@ -58,3 +58,22 @@ $shadow-offset: 10px
   &:disabled
     background-color: $form-disabled-color
     cursor: not-allowed
+
+
+$desktop-width: 1069
+$tablet-width: 772
+$desktop-form-width: 400
+$tablet-form-width: 200
+$phone-form-width: 100
+
+@media (min-width: $desktop-width)
+  .form-container
+    width: $desktop-form-width
+
+@media (min-width: $tablet-width) and (max-width: $desktop-width - 1)
+  #form
+    width: $tablet-form-width
+
+@media (max-width: $tablet-width - 1)
+  #form
+    width: $phone-form-width

@@ -13,8 +13,14 @@
     <td>{{ dot.x }}</td>
     <td>{{ dot.y }}</td>
     <td>{{ dot.r }}</td>
-    <td>{{ dot.hit ? 'Да' : 'Нет' }}</td>
-    <td>{{ dot.datetime }}</td>
+    <td>{{ dot.hit ? 'Попал!' : 'Мимо' }}</td>
+    <td>{{ formatDate(dot.datetime) }}</td>
   </tr>
   </tbody>
 </table>
+
+<div class="pagination">
+  <button (click)="previousPage()" [disabled]="!(this.currentPage > 0)">Предыдущая</button>
+  <span>Страница {{ currentPage + 1 }} из {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="!(this.currentPage < this.totalPages - 1)">Следующая</button>
+</div>
